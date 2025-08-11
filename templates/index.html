@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ligas Personalizadas</title>
+    <link rel="manifest" href="/manifest.json">
+</head>
+<body>
+    <h1>Mis Ligas</h1>
+
+    <form action="/crear_liga" method="post">
+        <input type="text" name="nombre" placeholder="Nombre de la liga" required>
+        <button type="submit">Crear liga</button>
+    </form>
+
+    {% for liga, datos in ligas.items() %}
+    <h2>{{ liga }}</h2>
+    <form action="/agregar_equipo/{{ liga }}" method="post">
+        <input type="text" name="equipo" placeholder="Nombre del equipo" required>
+        <button type="submit">Agregar equipo</button>
+    </form>
+
+    <form action="/simular_partido/{{ liga }}" method="post">
+        <button type="submit">Simular partido</button>
+    </form>
+
+    <h3>Equipos</h3>
+    <ul>
+        {% for equipo in datos.equipos %}
+            <li>{{ equipo }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Partidos</h3>
+    <ul>
+        {% for partido in datos.partidos %}
+            <li>{{ partido }}</li>
+        {% endfor %}
+    </ul>
+    {% endfor %}
+
+</body>
+</html>
